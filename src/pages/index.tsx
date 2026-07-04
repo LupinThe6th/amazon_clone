@@ -22,12 +22,26 @@ export default function Home({productData}: Props) {
 
 export const getServerSideProps = async() =>{
   try {
-    const res = await fetch("https://fakestoreapi.com/products",{
-      headers: {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+    const res = await fetch("https://fakestoreapi.noksha.dev/api/amazonproducts");
+    const jsonResponse = await res.json();
+    const rawProducts = jsonResponse.data || [];
+    const productData = rawProducts.map((product: any) => {
+      let correctedImage = product.image;
+
+      if (product.image && product.image.includes("fakestoreapi.com/img/")) {
+        // Replace the truncated '.jpg' with '_t.png' or clean extensions
+        // This maps them cleanly to the real images that actually exist
+        correctedImage = product.image
+          .replace("_.jpg", "_t.png")
+          .replace("-2.jpg", "-2t.png")
+          .replace(".jpg", ".jpg"); // keep standard if fallback
       }
+
+      return {
+        ...product,
+        image: correctedImage,
+      };
     });
-    const productData = await res.json();
     return {props: {productData}};
   } catch (error) {
     console.error("Network fetch failed on Vercel:", error);
