@@ -4,7 +4,7 @@ import Products from "@/components/Products";
 import { ProductProps } from "../../type";
 
 interface Props {
- productData: ProductProps
+ productData: ProductProps[];
 }
 
 export default function Home({productData}: Props) {
