@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { stateProps, StoreProduct } from "../../type";
 import { SiMediamarkt } from "react-icons/si";
 import FormattedPrice from "./FormattedPrice";
-import { loadStripe } from "@stripe/stripe-js";
 import { useSession } from "next-auth/react";
 
 const CartPayment = () =>{
@@ -19,15 +18,10 @@ const CartPayment = () =>{
         setTotalAmount(amount)
     },[productData]);
 
-    //Stripe payment
-    // const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
-    
     const { data: session } = useSession();
 
     const handleCheckout = async() => {
-       // const stripe = await stripePromise;
         
-
         const response = await fetch("/api/checkout", {
         method: "POST",
         headers: {
@@ -39,17 +33,11 @@ const CartPayment = () =>{
       
       //Redirecting user to checkout customer
       if (checkoutSession?.url) {
-         window.location.href = checkoutSession.url; // Safely pushes user to Stripe Secure Server
+         window.location.href = checkoutSession.url;  //Safely pushes user to Stripe Secure Server
       } else {
         alert("Something went wrong creating your checkout portal.");
       }
-        //    const result: any = await stripe?.redirectToCheckout({
-        //         sessionId: checkoutSession.id,
-        //     });
-        //   if (result.error) {
-        //     alert(result?.error.message);
-        //   }
-
+          
     };
 
     return (

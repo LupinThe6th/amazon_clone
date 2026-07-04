@@ -31,6 +31,7 @@ const Header = () =>  {
      ? rawImage.replace("http://", "https://") 
      : rawImage;
      
+     
     return (
         <div className="w-full h-20 bg-amazon_blue text-lighttext sticky top-0 z-50">
            <div className="h-full w-full mx-auto inline-flex items-center justify-between gap-1 mdl:gap-3 px-4">
@@ -59,7 +60,7 @@ const Header = () =>  {
             {/* Sign in */}
             {userInfo? 
             <div  className="flex items-center px-2 border border-transparent hover:border-white cursor-pointer duration-300 h-[70%] gap-1">
-                <img src={secureUserImage} alt="userImage" className="w-8 h-8 rounded-full object-cover" />
+                <img src={secureUserImage} referrerPolicy="no-referrer" alt="userImage" className="w-8 h-8 rounded-full object-cover" />
                 <div  className="text-gray-100 flex flex-col justify-between">
                    <p className="text-white font-bold">{userInfo.name}</p>
                    <p>{userInfo.email}</p>
