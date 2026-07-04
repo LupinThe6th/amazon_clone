@@ -23,8 +23,8 @@ export default function Home({productData}: Props) {
 export const getServerSideProps = async() =>{
   try {
     const res = await fetch("https://fakestoreapi.com/products")
-    const productData = await res.json();
-    return {props: {productData}};
+    const data = await res.json();
+    return {props: {productData: JSON.parse(JSON.stringify(data))}};
   } catch (error) {
     console.error("Network fetch failed on Vercel:", error);
   }

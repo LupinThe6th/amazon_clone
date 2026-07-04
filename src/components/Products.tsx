@@ -11,7 +11,7 @@ const Products = ({productData} : any) => {
     const dispatch = useDispatch();
     return (
         <div className="w-full p-6 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-            {productData.map(({
+            {productData?.map(({
                 id,
                 title,
                 price,
